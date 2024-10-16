@@ -1,5 +1,5 @@
 import click
-from lgrm import core
+from lgtm import core
 @click.command()
 def cli():
     """LGTM 이미지 생성 도구"""
