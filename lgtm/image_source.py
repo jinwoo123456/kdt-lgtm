@@ -1,5 +1,6 @@
 from io import BytesIO
 import requests
+from pathlib import Path
 
 class LocalImage:
     """파일로부터 이미지를 얻음"""
@@ -50,3 +51,20 @@ class _LoremPicsum(RemoteImage):
 
 KeywordImage = _LoremFlickr    
 KeywordImage2 = _LoremPicsum    
+
+def ImageSource(keyword):
+    """ghgjhg
+    """
+    if keyword.startswith(('http://', 'https://')):
+        return RemoteImage(keyword)
+    elif Path(keyword).exists():
+        return LocalImage(keyword)
+    else:
+        # return KeywordImage2()
+        return KeywordImage(keyword)
+
+
+def get_image(keyword):
+    """hgjhgj
+    """
+    return ImageSource(keyword).get_image()

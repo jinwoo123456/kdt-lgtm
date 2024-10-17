@@ -8,8 +8,14 @@ FONT_MAX_SIZE = 256
 FONT_MIN_SIZE = 24
 
 # Windows나 Linux에서는 경로가 다름
-FONT_NAME = '/Library/Fonts/Arial Bold.ttf'
-FONT_COLOR_WHITE = (255, 255, 255, 0)
+import sys
+
+if sys.platform=='win32':
+    FONT_NAME = r'C:\Windows\Fonts\HMFMPYUN.TTF'
+    FONT_COLOR_WHITE = (255, 255, 255, 0)
+else:    
+    FONT_NAME = '/Library/Fonts/Arial Bold.ttf'
+    FONT_COLOR_WHITE = (255, 255, 255, 0)
 
 # 출력 관련 상수
 OUTPUT_NAME = 'output.png'
@@ -27,9 +33,18 @@ def save_with_message(fp, message):
 
     # 폰트 크기를 결정
     for font_size in range(FONT_MAX_SIZE, FONT_MIN_SIZE, -1):
+
         font = ImageFont.truetype(FONT_NAME, font_size)
+        
         # 그리기에 필요한 크기
-        text_width, text_height = draw.textsize(message, font=font)
+        # text_width, text_height = draw.textsize(message, font=font)
+        aa= (0,0)
+        text_width, text_height, x, y = draw.textbbox(aa, message, font=font)
+
+        print(text_width)
+        print(text_height)
+        print(x)
+        print(y)
         w = message_area_width - text_width
         h = message_area_height - text_height
 
